@@ -12,7 +12,7 @@ h1	{
 }
 
 .highlight {
-    background-color: yellow;
+    background-color:#ff7b25;
 }
   
 .error {
@@ -24,7 +24,6 @@ h1	{
     display: grid;
     grid-template-rows: 25% 10% auto;
     grid-template-columns: 10% auto 10%;
-    /* font-size: 16px; */
 }
 
 .instructions{
