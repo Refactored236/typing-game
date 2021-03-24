@@ -1,4 +1,4 @@
-- name: Azure Static Web Apps Deploy
+name: Azure Static Web Apps Deploy
   uses: Azure/static-web-apps-deploy@v0.0.1-preview
   with:
     # Action to perform
