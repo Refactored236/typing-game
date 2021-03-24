@@ -18,9 +18,13 @@ let startTime = Date.now();
 // page elements
 const quoteElement = document.getElementById('quote');
 const messageElement = document.getElementById('message');
+const modalMessageElement = document.getElementById('modalMessage');
 const typedValueElement = document.getElementById('typed-value');
+const modal = document.getElementById("myModal");
+const span = document.getElementsByClassName("close")[0];
 
 document.getElementById('start').addEventListener('click', () => {
+    typedValueElement.disabled = false;
     // get a quote
     const quoteIndex = Math.floor(Math.random() * quotes.length);
     const quote = quotes[quoteIndex];
@@ -61,7 +65,9 @@ document.getElementById('start').addEventListener('click', () => {
       // Display success
       const elapsedTime = new Date().getTime() - startTime;
       const message = `CONGRATULATIONS! You finished in ${elapsedTime / 1000} seconds.`;
-      messageElement.innerText = message;
+      modal.style.display = "block";
+      modalMessageElement.innerText = message;
+      typedValueElement.disabled = true;
     } else if (typedValue.endsWith(' ') && typedValue.trim() === currentWord) {
       // end of word
       // clear the typedValueElement for the new word
@@ -83,3 +89,15 @@ document.getElementById('start').addEventListener('click', () => {
       typedValueElement.className = 'error';
     }
   });
+
+  // When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+  }
+  
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
