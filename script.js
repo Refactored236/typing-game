@@ -11,6 +11,7 @@ const quotes = [
 // store the list of words and the index of the word the player is currently typing
 let words = [];
 let wordIndex = 0;
+let bestTime;
 
 // the starting time
 let startTime = Date.now();
@@ -59,15 +60,31 @@ document.getElementById('start').addEventListener('click', () => {
     const currentWord = words[wordIndex];
     // get the current value
     const typedValue = typedValueElement.value;
-  
+    
     if (typedValue === currentWord && wordIndex === words.length - 1) {
       // end of sentence
       // Display success
       const elapsedTime = new Date().getTime() - startTime;
-      const message = `CONGRATULATIONS! You finished in ${elapsedTime / 1000} seconds.`;
+      const elapsedString = `${elapsedTime / 1000} seconds`;
+      const currentPB = window.localStorage.getItem(quoteElement.innerText);
+      let message = '';
+      if (!currentPB)
+      {
+        window.localStorage.setItem(quoteElement.innerText,elapsedString);
+        message = `CONGRATULATIONS! You finished in ${elapsedString}. It's a new record!!!`;
+      }
+      else if(currentPB && elapsedString < currentPB) 
+      {
+          window.localStorage.setItem(quoteElement.innerText,elapsedString);
+          message = `CONGRATULATIONS! You finished in ${elapsedString}. It's a new PERSONAL BEST!!!`;
+      }
+      else{
+        message = `You finished in ${elapsedString}. Current Personal best is ${currentPB}`;
+      }
       modal.style.display = "block";
       modalMessageElement.innerText = message;
       typedValueElement.disabled = true;
+
     } else if (typedValue.endsWith(' ') && typedValue.trim() === currentWord) {
       // end of word
       // clear the typedValueElement for the new word
